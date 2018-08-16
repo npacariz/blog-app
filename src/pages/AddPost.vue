@@ -26,7 +26,6 @@ export default {
       this.$store.dispatch("addPosts", this.newPost);
       this.$router.push("/posts");
     },
-
     reset() {
       newPost = {
         text: "",
