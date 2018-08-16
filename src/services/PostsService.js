@@ -8,6 +8,10 @@ export default class Posts {
   getAll() {
     return axios.get("posts");
   }
+
+  addPost(newPosts) {
+    return axios.post("posts", newPosts);
+  }
 }
 
 export const posts = new Posts();

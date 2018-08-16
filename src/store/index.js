@@ -10,12 +10,20 @@ export default new Vuex.Store({
   mutations: {
     fillPosts: (state, posts) => {
       state.posts = posts;
+    },
+    addPosts: (state, newPost) => {
+      state.posts.push(newPost);
     }
   },
   actions: {
     getAllPosts: context => {
       posts.getAll().then(response => {
         context.commit("fillPosts", response.data);
+      });
+    },
+    addPosts: (context, newPosts) => {
+      posts.addPost(newPosts).then(() => {
+        context.commit("addPosts", newPosts);
       });
     }
   },

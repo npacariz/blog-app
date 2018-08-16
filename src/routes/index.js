@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRoute from "vue-router";
 import AppPosts from "../pages/AppPosts.vue";
 import ViewPost from "../pages/ViewPost.vue";
+import AddPost from "../pages/AddPost.vue";
 
 Vue.use(VueRoute);
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/post/:id",
     component: ViewPost,
     name: "single"
+  },
+  {
+    path: "/add",
+    component: AddPost,
+    name: "addPost"
   }
 ];
 

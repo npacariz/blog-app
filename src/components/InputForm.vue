@@ -1,0 +1,32 @@
+<template>
+    <div id="InputForm">
+        <form @submit.prevent='submit()'>
+        <div class="form-group">
+            <label for="usr">Title:</label>
+            <input type="text" class="form-control" v-model="newPost.title" >
+        </div>
+        <div class="form-group">
+            <label for="pwd">Body</label>
+            <textarea type="text" class="form-control" v-model="newPost.text"></textarea>
+        </div>
+        <button type="submit" class='btn btn-success'>Submit</button>
+         </form>
+    </div>
+</template>
+
+<script>
+export default {
+  name: "InputForm",
+  props: {
+    newPost: Object
+  },
+  methods: {
+    submit() {
+      this.$emit("submit");
+    }
+  }
+};
+</script>
+
+<style>
+</style>

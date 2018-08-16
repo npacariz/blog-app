@@ -1,15 +1,11 @@
 <template>
-  <div class="ViewPost">
-
-
+  <div id="ViewPost">
     <div class="container">
         <div class="jumbotron">
             <h1>{{singlePost.title}}</h1> 
             <p>{{singlePost.text}}</p> 
             <small>{{singlePost.createdAt}}</small> 
         </div>
-        
-
     </div>
   </div>
 </template>
