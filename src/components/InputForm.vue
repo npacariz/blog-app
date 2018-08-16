@@ -10,6 +10,7 @@
             <textarea type="text" class="form-control" v-model="newPost.text"></textarea>
         </div>
         <button type="submit" class='btn btn-success'>Submit</button>
+        <button type="reset" @click="reset" class='btn btn-warning'>Reset</button>
          </form>
     </div>
 </template>
@@ -23,6 +24,9 @@ export default {
   methods: {
     submit() {
       this.$emit("submit");
+    },
+    reset() {
+      this.$emit("reset");
     }
   }
 };

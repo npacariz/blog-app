@@ -1,6 +1,6 @@
 <template>
     <div id="AddPost">
-        <InputForm :newPost="newPost" @submit ="addPost" />
+        <InputForm :newPost="newPost" @submit ="addPost" @reset="reset" />
   
     </div>
 </template>
@@ -25,6 +25,13 @@ export default {
     addPost() {
       this.$store.dispatch("addPosts", this.newPost);
       this.$router.push("/posts");
+    },
+
+    reset() {
+      newPost = {
+        text: "",
+        title: ""
+      };
     }
   }
 };
