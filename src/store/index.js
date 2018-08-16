@@ -18,5 +18,10 @@ export default new Vuex.Store({
         context.commit("fillPosts", response.data);
       });
     }
+  },
+  getters: {
+    getSinglePost: state => id => {
+      return state.posts.find(post => post.id === id);
+    }
   }
 });
