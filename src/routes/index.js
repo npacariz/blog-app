@@ -1,15 +1,23 @@
 import Vue from "vue";
-import VueRoute from "vue-route";
+import VueRoute from "vue-router";
+import AppPosts from "../pages/AppPosts.vue";
 
 Vue.use(VueRoute);
 
 const routes = [
   {
     path: "/",
-    redirict: "/posts"
+    redirect: "/posts"
   },
   {
-      path: '/posts'
-      component: 
+    path: "/posts",
+    component: AppPosts,
+    name: "posts"
   }
 ];
+
+const router = new VueRoute({
+  routes
+});
+
+export default router;

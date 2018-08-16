@@ -1,7 +1,7 @@
 <template>
   <div class="NavBar">
        <nav class="nav blog-nav">
-          <a class="nav-link active" href="#">Home</a>
+          <router-link class="nav-link" :to="{name: 'posts'}" >Posts</router-link>
           <a class="nav-link" href="#">New features</a>
           <a class="nav-link" href="#">Press</a>
           <a class="nav-link" href="#">New hires</a>
