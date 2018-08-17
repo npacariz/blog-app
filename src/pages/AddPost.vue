@@ -1,7 +1,7 @@
 <template>
     <div id="AddPost">
-        <InputForm :newPost="newPost" @submit ="addPost" @reset="reset" />
-  
+        
+        <InputForm :newObj="newPost" :title ="title" @submit ="submit" @reset="reset" />
     </div>
 </template>
 
@@ -18,19 +18,34 @@ export default {
       newPost: {
         text: "",
         title: ""
-      }
+      },
+      title: "Add Post"
     };
   },
   methods: {
+    submit() {
+      this.$route.params.id ? this.editPost() : this.addPost();
+    },
     addPost() {
       this.$store.dispatch("addPosts", this.newPost);
       this.$router.push("/posts");
     },
+    editPost() {
+      this.$store.dispatch("editPost", this.newPost);
+      this.$router.push("/posts");
+    },
     reset() {
-      newPost = {
+      this.newPost = {
         text: "",
         title: ""
       };
+    }
+  },
+
+  created() {
+    if (this.$route.params.id) {
+      this.newPost = this.$store.getters.getSinglePost(this.$route.params.id);
+      this.title = "Edit Post";
     }
   }
 };

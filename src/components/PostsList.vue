@@ -1,11 +1,12 @@
 <template>
 <div>
-
     <div class="blog-post" v-for="post in posts" :key="post.id">
         <h2 class="blog-post-title">{{post.title}}</h2>
             <p class="blog-post-meta">{{post.createdAt}}</p>
             <p>{{post.text}}</p>
-            <router-link :to="{name:'single', params:{id: post.id}}">View Post</router-link>
+            <router-link  class="btn btn-info" :to="{name:'single', params:{id: post.id}}">View Post</router-link>
+            <router-link class="btn btn-warning" :to="{name:'edit', params:{id: post.id}}">Edit</router-link>
+            <button class="btn btn-danger" @click="deletePost(post)">Delete</button>
             <hr>
      </div>
 </div>
@@ -13,7 +14,15 @@
 
 <script>
 export default {
-  props: ["posts"]
+  props: ["posts"],
+
+  methods: {
+    deletePost(post) {
+      if (confirm("Are you sure you wanth to delete post?")) {
+        this.$store.dispatch("deletePost", post);
+      }
+    }
+  }
 };
 </script>
 

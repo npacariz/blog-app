@@ -7,13 +7,30 @@
             <small>{{singlePost.createdAt}}</small> 
         </div>
     </div>
+    <InputForm :title="title">
+        <template>
+            <input type="text">
+        </template>
+    </InputForm>
   </div>
 </template>
 
 <script>
+import InputForm from "../components/InputForm.vue";
+
 export default {
   name: "ViewPost",
-
+  components: {
+    InputForm
+  },
+  data() {
+    return {
+      newComment: {
+        text: ""
+      },
+      title: "Add Comment"
+    };
+  },
   computed: {
     singlePost() {
       return this.$store.getters.getSinglePost(this.$route.params.id);
