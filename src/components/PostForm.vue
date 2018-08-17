@@ -2,16 +2,14 @@
     <div id="InputForm">
         <h3>{{title}}</h3>
         <form @submit.prevent='submit()'>
-        <slot>
         <div class="form-group">
             <label for="usr">Title:</label>
-            <input type="text" class="form-control" v-model="newObj.title" required minlength='2'>
-        </div>
-        <div class="form-group">
+            <input type="text" class="form-control" v-model="newPost.title" required minlength='2'>
+          </div>
+          <div class="form-group">
             <label for="pwd">Body</label>
-            <textarea type="text" class="form-control" v-model="newObj.text" required maxlength="300"></textarea>
-        </div>
-        </slot>
+            <textarea type="text" class="form-control" v-model="newPost.text" required maxlength="300"></textarea>
+          </div>
         <button type="submit" class='btn btn-success'>{{title}}</button>
         <button type="reset" @click="reset" class='btn btn-warning'>Reset</button>
          </form>
@@ -22,7 +20,7 @@
 export default {
   name: "InputForm",
   props: {
-    newObj: Object,
+    newPost: Object,
     title: String
   },
   methods: {
@@ -36,5 +34,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.form-group {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+button {
+  margin: 5px;
+}
 </style>

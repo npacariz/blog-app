@@ -1,16 +1,15 @@
 <template>
     <div id="AddPost">
-        
-        <InputForm :newObj="newPost" :title ="title" @submit ="submit" @reset="reset" />
+        <PostForm :title ="title" :newPost="newPost" @submit ="submit" @reset="reset" />
     </div>
 </template>
 
 <script>
-import InputForm from "../components/InputForm.vue";
+import PostForm from "../components/PostForm.vue";
 export default {
   name: "AddPost",
   components: {
-    InputForm
+    PostForm
   },
   props: ["posts"],
   data() {

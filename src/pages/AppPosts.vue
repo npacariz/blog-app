@@ -21,8 +21,10 @@ export default {
       return this.$store.state.posts;
     }
   },
-  created() {
-    this.$store.dispatch("getAllPosts");
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.dispatch("getAllPosts");
+    });
   }
 };
 </script>

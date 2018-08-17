@@ -1,12 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
 import { posts } from "../services/PostsService.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    posts: []
+    posts: [],
+    comments: []
   },
+
   mutations: {
     fillPosts: (state, posts) => {
       state.posts = posts;
@@ -21,6 +24,20 @@ export default new Vuex.Store({
     deletePost: (state, post) => {
       const postIndex = state.posts.indexOf(post);
       state.posts.splice(postIndex, 1);
+    },
+    addingComments: (state, post) => {
+      state.posts.forEach(p => {
+        if (p.id === post.id) {
+          return (p.comments = post.comments);
+        }
+      });
+    },
+    addComment: (state, payload) => {
+      state.posts.forEach(post => {
+        if (post.id === payload.id) {
+          post.comments.push(payload.comment);
+        }
+      });
     }
   },
   actions: {
@@ -42,6 +59,19 @@ export default new Vuex.Store({
     deletePost: (context, post) => {
       posts.deletePost(post.id).then(() => {
         context.commit("deletePost", post);
+      });
+    },
+
+    addComment: (context, payload) => {
+      posts.addComment(payload.comment, payload.id).then(() => {
+        context.commit("addComment", payload);
+      });
+    },
+
+    getComments: (context, id) => {
+      posts.getSingle(id).then(response => {
+        context.commit("addingComments", response.data);
+        context.getters.getSinglePost();
       });
     }
   },
