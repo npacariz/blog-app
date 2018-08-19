@@ -6,25 +6,24 @@ export default class Posts {
   }
 
   getAll() {
-    return axios.get("posts");
+    return axios.get(`posts?filter={"include":["comments"]}`);
   }
+
   getSingle(id) {
     return axios.get(`posts/${id}?filter={"include":["comments"]}`);
   }
-  addPost(newPosts) {
-    return axios.post("posts", newPosts);
-  }
 
-  editPost(post) {
-    return axios.put(`posts/${post.id}`, post);
+  add(post) {
+    return axios.post("posts", post);
   }
-
-  deletePost(id) {
+  edit(id, post) {
+    return axios.put(`posts/${id}`, post);
+  }
+  delete(id) {
     return axios.delete(`posts/${id}`);
   }
-
-  addComment(comment, postId) {
-    return axios.post(`posts/${postId}/comments`, comment);
+  addComment(comment, id) {
+    return axios.post(`posts/${id}/comments`, comment);
   }
 }
 

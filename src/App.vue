@@ -1,9 +1,10 @@
 <template>
-  <div id="app" class='component'>
+  <div id="app">
     <NavBar />
-    <img alt="Vue logo" src="./assets/logo.png">
-    <router-view></router-view>
-  </div>
+    <div class="container">
+      <router-view :key="$route.params.id"></router-view>
+    </div>
+    </div>
 </template>
 
 <script>

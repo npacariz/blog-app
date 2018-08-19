@@ -1,22 +1,26 @@
 import Vue from "vue";
-import VueRoute from "vue-router";
+import VueRouter from "vue-router";
 import AppPosts from "../pages/AppPosts.vue";
 import ViewPost from "../pages/ViewPost.vue";
 import AddPost from "../pages/AddPost.vue";
 
-Vue.use(VueRoute);
+Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/posts",
+    name: "posts",
+    component: AppPosts
+  },
   {
     path: "/",
     redirect: "/posts"
   },
   {
-    path: "/posts",
-    component: AppPosts,
-    name: "posts"
+    path: "/add",
+    name: "addpost",
+    component: AddPost
   },
-
   {
     path: "/post/:id",
     component: ViewPost,
@@ -26,16 +30,10 @@ const routes = [
     path: "/edit/:id",
     component: AddPost,
     name: "edit"
-  },
-  {
-    path: "/add",
-    component: AddPost,
-    name: "addPost"
   }
 ];
 
-const router = new VueRoute({
+const router = new VueRouter({
   routes
 });
-
 export default router;

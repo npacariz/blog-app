@@ -1,4 +1,4 @@
-# blog-app
+# blog-app2
 
 ## Project setup
 ```

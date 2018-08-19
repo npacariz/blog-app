@@ -1,11 +1,13 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./routes";
-import store from "./store/index.js";
+import router from "./router/index";
+
+import tinymce from "vue-tinymce-editor";
+Vue.component("tinymce", tinymce);
+
 Vue.config.productionTip = false;
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount("#app");

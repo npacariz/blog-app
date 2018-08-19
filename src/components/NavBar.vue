@@ -1,12 +1,22 @@
 <template>
   <div class="NavBar">
-       <nav class="nav blog-nav">
-          <router-link class="nav-link" :to="{name: 'posts'}" >Posts</router-link>
-          <router-link class="nav-link" :to="{name: 'addPost'}" >Add Post</router-link>
-          <a class="nav-link" href="#">Press</a>
-          <a class="nav-link" href="#">New hires</a>
-          <a class="nav-link" href="#">About</a>
-        </nav>
+      <nav class="navbar navbar-expand-sm navbar-light bg-primary">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Logo</a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to='/posts'>Posts</router-link>
+          </li>
+          <li class="nav-item">
+              <router-link class="nav-link" :to="{name:'addpost'}">Add Post</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link 3</a>
+          </li>
+        </ul>
+      </nav>
   </div>
 </template>
 

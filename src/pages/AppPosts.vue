@@ -1,29 +1,35 @@
 <template>
   <div class="AppPosts">
-      <h1>Posts</h1>
-    <PostsList :posts= "posts" />
-        
-      
+      <PostList :posts="posts" @deletePost="deletePost"/>
   </div>
 </template>
 
 <script>
-import PostsList from "../components/PostsList.vue";
+import { posts } from "../services/PostService.js";
+import PostList from "../components/PostList.vue";
 export default {
   name: "AppPosts",
-
   components: {
-    PostsList
+    PostList
   },
 
-  computed: {
-    posts() {
-      return this.$store.state.posts;
+  data() {
+    return {
+      posts: []
+    };
+  },
+  methods: {
+    deletePost(id) {
+      posts.delete(id).then(() => {
+        this.posts = this.posts.filter(post => post.id != id);
+      });
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.$store.dispatch("getAllPosts");
+    posts.getAll().then(response => {
+      next(vm => {
+        vm.posts = response.data;
+      });
     });
   }
 };

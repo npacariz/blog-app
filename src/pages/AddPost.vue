@@ -1,39 +1,46 @@
 <template>
-    <div id="AddPost">
-        <PostForm :title ="title" :newPost="newPost" @submit ="submit" @reset="reset" />
-    </div>
+  <div class="AddPost">
+     <h1>{{title}} Post</h1>
+     <InputForm @submit="submit()" @reset="restartPost()"  :newObj="newPost"/>
+  </div>
 </template>
 
 <script>
-import PostForm from "../components/PostForm.vue";
+import { posts } from "../services/PostService.js";
+import InputForm from "../components/InputForm.vue";
+
 export default {
   name: "AddPost",
   components: {
-    PostForm
+    InputForm
   },
-  props: ["posts"],
   data() {
     return {
       newPost: {
-        text: "",
-        title: ""
+        title: "",
+        text: ""
       },
-      title: "Add Post"
+      title: "Add"
     };
   },
   methods: {
     submit() {
       this.$route.params.id ? this.editPost() : this.addPost();
     },
+
     addPost() {
-      this.$store.dispatch("addPosts", this.newPost);
-      this.$router.push("/posts");
+      posts.add(this.newPost).then(() => {
+        return this.$router.push({ name: "posts" });
+      });
     },
+
     editPost() {
-      this.$store.dispatch("editPost", this.newPost);
-      this.$router.push("/posts");
+      posts.edit(this.$route.params.id, this.newPost).then(() => {
+        return this.$router.push({ name: "posts" });
+      });
     },
-    reset() {
+
+    restartPost() {
       this.newPost = {
         text: "",
         title: ""
@@ -43,12 +50,19 @@ export default {
 
   created() {
     if (this.$route.params.id) {
-      this.newPost = this.$store.getters.getSinglePost(this.$route.params.id);
-      this.title = "Edit Post";
+      posts.getSingle(this.$route.params.id).then(response => {
+        this.newPost = response.data;
+        this.title = "Edit";
+      });
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.newPost = { title: "", text: "" };
+    this.title = "Add";
+    next();
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>

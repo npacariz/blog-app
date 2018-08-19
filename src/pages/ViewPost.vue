@@ -1,56 +1,73 @@
 <template>
-  <div id="ViewPost">
-    <div class="container">
-        <div class="jumbotron">
-            <h1>{{singlePost.title}}</h1> 
-            <p>{{singlePost.text}}</p> 
-            <small>{{singlePost.createdAt | formatDate()}}</small> 
-        </div>
+  <div class="SinglePost">
+      <div class="jumbotron">
+        <h6 class="display-4">{{post.title}}</h6>
+        <p class="lead">{{post.text}}</p>
+        <hr class="my-4">
+        <p class="lead">
+         
+        </p>
     </div>
-    <div v-for="comment in singlePost.comments" :key="comment.id">
-          <p>{{comment.text}}</p>
-          <small>commented: {{comment.createdAt | diffForHumans()}}</small>
-          <hr>
-          <br>
+    <div class="comments">
+        <h4>Comments: </h4>
+       <ul class="list-group">
+        <li class="list-group-item" v-for="comment in post.comments" :key="comment.id" >
+          <p>{{comment.text}}</p> <br> <small>commented: {{comment.createdAt | diffForHumans()}}</small>
+          </li>
+      </ul>
+      <CommentInput @submit="submit()" :newObj="newComment"/>
     </div>
-    <CommentForm @submit="submit" :newComment = "newComment"></CommentForm>
+    <div class='sugestedPost'>
+       <SugestedPost />
+    </div>
   </div>
 </template>
+
 <script>
-import CommentForm from "../components/CommentForm.vue";
+import { posts } from "../services/PostService.js";
 import { mixins } from "../mixins/DateMixin.js";
+import CommentInput from "../components/CommentInput.vue";
+import SugestedPost from "../components/SugestedPost.vue";
+import VueRecaptcha from "vue-recaptcha";
+
 export default {
-  name: "ViewPost",
-  mixins: [mixins],
+  name: "SinglePost",
   components: {
-    CommentForm
+    CommentInput,
+    SugestedPost
   },
+  mixins: [mixins],
   data() {
     return {
-      newComment: {
-        text: ""
-      }
+      post: {},
+      newComment: { text: "" }
     };
   },
   methods: {
     submit() {
-      let payload = { comment: this.newComment, id: this.singlePost.id };
-      this.$store.dispatch("addComment", payload);
-      this.newComment = {
-        text: ""
-      };
-    }
-  },
-  computed: {
-    singlePost() {
-      return this.$store.getters.getSinglePost(this.$route.params.id);
+      posts.addComment(this.newComment, this.$route.params.id).then(() => {
+        this.post.comments.push(this.newComment);
+        this.newComment = { text: "" };
+      });
     }
   },
   created() {
-    this.$store.dispatch("getComments", this.$route.params.id);
+    posts.getSingle(this.$route.params.id).then(respones => {
+      this.post = respones.data;
+    });
   }
 };
 </script>
 
 <style scoped>
+.comments {
+  width: 500px;
+  margin: auto;
+}
+.sugestedPost {
+  width: 300px;
+  height: 300px;
+  border: 3px solid #73ad21;
+  border-radius: 20%;
+}
 </style>
