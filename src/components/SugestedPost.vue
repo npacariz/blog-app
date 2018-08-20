@@ -13,6 +13,7 @@ import { posts } from "../services/PostService.js";
 
 export default {
   name: "SugestedPost",
+  props: ["id"],
   data() {
     return {
       post: {}
@@ -21,7 +22,9 @@ export default {
   created() {
     posts.getAll().then(respones => {
       let posts = respones.data;
-      this.post = posts[Math.floor(Math.random() * respones.data.length)];
+      posts = posts.filter(pos => pos.id != this.id);
+      console.log(posts);
+      this.post = posts[Math.floor(Math.random() * posts.length)];
     });
   }
 };

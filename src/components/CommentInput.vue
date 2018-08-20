@@ -25,6 +25,7 @@ export default {
     submit() {
       if (grecaptcha.getResponse()) {
         this.$emit("submit");
+        grecaptcha.reset();
       }
     }
   }

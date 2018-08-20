@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: "/",
-    redirect: "/posts"
+    redirect: { name: "posts" }
   },
   {
     path: "/add",

@@ -2,7 +2,7 @@
   <div class="SinglePost">
       <div class="jumbotron">
         <h6 class="display-4">{{post.title}}</h6>
-        <p class="lead">{{post.text}}</p>
+        <p class="lead" v-html="post.text"></p>
         <hr class="my-4">
         <p class="lead">
          
@@ -18,7 +18,7 @@
       <CommentInput @submit="submit()" :newObj="newComment"/>
     </div>
     <div class='sugestedPost'>
-       <SugestedPost />
+       <SugestedPost :id="post_id" />
     </div>
   </div>
 </template>
@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       post: {},
-      newComment: { text: "" }
+      newComment: { text: "" },
+      post_id: this.$route.params.id
     };
   },
   methods: {

@@ -4,7 +4,7 @@
     <div class="jumbotron" v-for= "post in posts" :key="post.id">
         <h6 class="display-4">{{post.title}}</h6>
          <p class="small">Created at: {{post.createdAt | formatDate()}} <br> Comments: {{post.comments.length}}</p>
-        <p class="lead">{{post.text}}</p>
+         <p class="lead" v-html="post.text"></p>
         <hr class="my-4">
         <p class="lead">
         <router-link class="btn btn-primary btn-lg" :to="{name:'single', params :{id: post.id}}" >View Post</router-link>
